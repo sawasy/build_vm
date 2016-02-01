@@ -1,0 +1,41 @@
+{
+  "builders":
+  [
+    {
+      "type": "qemu",
+      "iso_url": "http://localhost/ubuntu-14.04.2-server-amd64.iso",
+      "iso_checksum": "83aabd8dcf1e8f469f3c72fff2375195",
+      "iso_checksum_type": "md5",
+      "output_directory": "output-ubuntu-golden-build",
+      "ssh_wait_timeout": "30s",
+      "shutdown_command": "shutdown -P now",
+      "disk_size": 30000,
+      "format": "qcow2",
+      "accelerator": "kvm",
+      "ssh_host_port_min": 2222,
+      "ssh_host_port_max": 2229,
+      "ssh_username": "root",
+      "ssh_password": "r00tmer00tme",
+      "ssh_port": 22,
+      "ssh_wait_timeout": "10m",
+      "vm_name": "golden-build",
+      "net_device": "virtio-net",
+      "disk_interface": "virtio",
+      "headless": true,
+      "output_directory": "/var/lib/jenkins/VMs",
+      "boot_wait": "5s",
+      "boot_command":
+      [
+            "<esc><esc><enter><wait>",
+            "/install/vmlinuz noapic ",
+            "preseed/url=http://localhost/preseed.txt ",
+            "debian-installer=en_US auto locale=en_US kbd-chooser/method=us ",
+            "hostname=golden-build ",
+            "fb=false debconf/frontend=noninteractive ",
+            "keyboard-configuration/modelcode=SKIP keyboard-configuration/layout=USA ",
+            "keyboard-configuration/variant=USA console-setup/ask_detect=false ",
+            "initrd=/install/initrd.gz -- <enter>"
+      ]
+    }
+  ]
+}
